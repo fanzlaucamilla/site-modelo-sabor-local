@@ -1,0 +1,32 @@
+/* Tailwind CSS v4: uma única linha importa base + utilitários. */
+@import "tailwindcss";
+
+/* Tema da marca (Tailwind v4 usa CSS, não mais o tailwind.config.ts).
+   Cada token --color-* vira uma família de classes: bg-<nome>, text-<nome>, border-<nome>...
+   Ex.: --color-verde  ->  bg-verde, text-verde, border-verde */
+@theme {
+  --color-verde: #2e7d32;        /* verde folha — cor principal */
+  --color-verde-claro: #e8f5e9;  /* verde claro — fundos suaves */
+  --color-laranja: #e8730c;      /* laranja terra — destaque / CTA / selos */
+  --color-cinza: #1f2937;        /* cinza escuro — texto */
+  --color-branco: #ffffff;       /* branco neve — fundo */
+}
+
+/* Fontes: o valor vem das variáveis criadas pelo next/font (em app/layout.tsx).
+   O 'inline' faz o utilitário apontar direto para a variável, evitando referência circular.
+   Isso cria as classes font-poppins e font-inter. */
+@theme inline {
+  --font-poppins: var(--font-poppins);
+  --font-inter: var(--font-inter);
+}
+
+/* Rolagem suave ao clicar nos links de âncora do menu. */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Compensa o cabeçalho fixo: ao rolar até uma seção pela âncora,
+   deixa um respiro no topo para o conteúdo não ficar escondido. */
+section {
+  scroll-margin-top: 80px;
+}

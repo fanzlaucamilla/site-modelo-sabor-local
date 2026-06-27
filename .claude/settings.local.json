@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ' *)",
+      "Bash(cd \"C:/Users/camil/Downloads/SaborLocal\" && mkdir -p app components public/imagens && cp imagens/*.png public/imagens/ && ls public/imagens/)",
+      "PowerShell(npm install)",
+      "PowerShell(npm install next@14 --save-exact; if \\($?\\) { \\(Get-Content package.json | Select-String 'next'\\).Line })",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(cp -f imagens/logo-principal.png public/imagens/logo-principal.png)",
+      "Bash(node -e \"const b=require\\('fs'\\).readFileSync\\('public/imagens/logo-principal.png'\\);console.log\\('agora em public:', b.length+' bytes'\\);\")",
+      "Bash(node -p \"require\\('next/package.json'\\).version\")",
+      "Bash(node -p \"require\\('react/package.json'\\).version\")",
+      "Bash(node -p \"require\\('tailwindcss/package.json'\\).version\")",
+      "Bash(node -p \"require\\('@tailwindcss/postcss/package.json'\\).version\")",
+      "Bash(git init *)",
+      "Bash(git branch *)",
+      "Bash(git add *)",
+      "Bash(git commit -q -m ' *)"
+    ]
+  }
+}

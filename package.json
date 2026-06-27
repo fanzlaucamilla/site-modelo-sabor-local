@@ -1,0 +1,27 @@
+{
+  "name": "saborlocal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page institucional da SaborLocal — material didático de Front-end.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "lucide-react": "^1.21.0",
+    "next": "^16.2.9",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.1",
+    "@types/node": "20.14.13",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "postcss": "8.4.40",
+    "tailwindcss": "^4.3.1",
+    "typescript": "5.5.4"
+  }
+}

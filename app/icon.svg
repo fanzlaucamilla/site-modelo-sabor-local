@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Favicon da SaborLocal: a folha da marca. -->
+  <!-- Caule -->
+  <path d="M196 388c-40 30-62 84-60 124 1 11 15 13 21 4 26-38 46-86 56-122z" fill="#2E7D32"/>
+  <!-- Folha -->
+  <path d="M196 388C82 300 150 96 436 64c30 270-152 372-240 324z" fill="#2E7D32"/>
+  <!-- Nervura central (branca) -->
+  <path d="M182 392C244 318 332 214 414 112" fill="none" stroke="#ffffff" stroke-width="22" stroke-linecap="round"/>
+</svg>

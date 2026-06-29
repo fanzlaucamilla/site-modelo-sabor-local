@@ -16,5 +16,5 @@ next-env.d.ts
 # Configuração local do Claude Code / editor (não vai para os alunos)
 .claude/
 
-# Material do professor (roteiro de aula) — não publicar para os alunos
-AULA1.md
+# Material do professor (roteiros de aula) — não publicar para os alunos
+AULA*.md

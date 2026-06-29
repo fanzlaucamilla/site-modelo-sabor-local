@@ -12,19 +12,27 @@ o código foi escrito para ser lido e estudado: limpo, comentado e organizado.
 - **Tailwind CSS v4** — toda a estilização (tema definido por `@theme` no CSS)
 - **lucide-react** — ícones
 
-## Como rodar
+## Como rodar (passo a passo para o aluno)
 
-Você precisa do [Node.js](https://nodejs.org/) instalado (versão 20.9 ou superior).
+Você precisa do [Node.js](https://nodejs.org/) (versão 20.9 ou superior) e do
+[Git](https://git-scm.com/) instalados. Confira no terminal com `node -v` e `git --version`.
 
 ```bash
-# 1. Instale as dependências
+# 1. Clone o repositório
+git clone https://github.com/fanzlaucamilla/site-modelo-sabor-local.git
+
+# 2. Entre na pasta do projeto
+cd site-modelo-sabor-local
+
+# 3. Instale as dependências (cria a pasta node_modules automaticamente)
 npm install
 
-# 2. Suba o servidor de desenvolvimento
+# 4. Suba o servidor de desenvolvimento
 npm run dev
 ```
 
-Depois abra **http://localhost:3000** no navegador.
+Depois abra **http://localhost:3000** no navegador. A cada arquivo salvo, a página
+atualiza sozinha. Para parar o servidor: `Ctrl + C` no terminal.
 
 Outros comandos úteis:
 

@@ -3,8 +3,8 @@
 // hooks do React (useState, useEffect etc.) — indica que roda no navegador, não no servidor.
 
 // Seção "Contato": formulário controlado pelo React com useState.
-// Ao enviar, exibe os dados no console e mostra mensagem de sucesso.
-// O envio real via API será implementado em aula futura.
+// Ao enviar, manda os dados para a nossa API (/api/contato) com fetch
+// e mostra uma mensagem de sucesso ou de erro conforme a resposta.
 
 // useState: gerencia o valor de cada campo e o estado de envio
 // FormEvent: tipo TypeScript para o evento de submit do formulário
@@ -21,23 +21,52 @@ export default function Contato() {
   // Controla a visibilidade da mensagem de sucesso após o envio
   const [enviado, setEnviado] = useState(false);
 
-  // Função chamada quando o usuário clica em "Enviar mensagem"
-  // FormEvent<HTMLFormElement>: tipo correto para o evento do elemento <form>
-  function handleSubmit(evento: FormEvent<HTMLFormElement>) {
+  // enviando: true enquanto esperamos a resposta da API (desabilita o botão)
+  const [enviando, setEnviando] = useState(false);
+
+  // erro: guarda uma mensagem para mostrar caso o envio falhe
+  const [erro, setErro] = useState("");
+
+  // Função chamada quando o usuário clica em "Enviar mensagem".
+  // async: permite usar await para ESPERAR a resposta da API.
+  async function handleSubmit(evento: FormEvent<HTMLFormElement>) {
     // Impede o comportamento padrão do browser (recarregar a página ao submeter o form)
     evento.preventDefault();
 
-    // Exibe os dados no console para fins de teste/desenvolvimento
-    // Em produção, aqui entraria uma chamada fetch() para uma API
-    console.log({ nome, email, mensagem });
+    // Reinicia os avisos e marca que o envio começou (botão vira "Enviando...")
+    setErro("");
+    setEnviado(false);
+    setEnviando(true);
 
-    // Mostra a mensagem de sucesso na tela
-    setEnviado(true);
+    try {
+      // Envia os dados para a NOSSA API (arquivo app/api/contato/route.ts).
+      // method "POST" + body em JSON: é assim que mandamos dados para um endpoint.
+      const resposta = await fetch("/api/contato", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, email, mensagem }),
+      });
 
-    // Limpa todos os campos do formulário após o envio
-    setNome("");
-    setEmail("");
-    setMensagem("");
+      // Lê a resposta da API, que também vem em JSON.
+      const dados = await resposta.json();
+
+      // resposta.ok é false para status de erro (400, 500...). Aí lançamos o erro.
+      if (!resposta.ok) {
+        throw new Error(dados.erro ?? "Não foi possível enviar agora.");
+      }
+
+      // Deu certo: mostra a mensagem de sucesso e limpa os campos.
+      setEnviado(true);
+      setNome("");
+      setEmail("");
+      setMensagem("");
+    } catch (e) {
+      // Se algo falhar (sem internet, erro no servidor...), mostramos um aviso.
+      setErro(e instanceof Error ? e.message : "Não foi possível enviar agora.");
+    } finally {
+      // Aconteça o que acontecer, o envio terminou — reabilita o botão.
+      setEnviando(false);
+    }
   }
 
   return (
@@ -141,11 +170,15 @@ export default function Contato() {
             {/* rounded-xl bg-verde px-7 py-3.5: bordas arredondadas, fundo verde, padding */}
             {/* font-semibold text-branco: semi-negrito branco */}
             {/* transition-colors hover:bg-verde/90: hover suavizado com leve transparência */}
+            {/* disabled={enviando}: trava o botão enquanto a API responde */}
+            {/* disabled:opacity-60 / cursor-not-allowed: visual de botão desabilitado */}
+            {/* O texto muda para "Enviando..." durante a espera */}
             <button
               type="submit"
-              className="self-start rounded-xl bg-verde px-7 py-3.5 font-semibold text-branco transition-colors hover:bg-verde/90"
+              disabled={enviando}
+              className="self-start rounded-xl bg-verde px-7 py-3.5 font-semibold text-branco transition-colors hover:bg-verde/90 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              Enviar mensagem
+              {enviando ? "Enviando..." : "Enviar mensagem"}
             </button>
           </form>
 
@@ -156,6 +189,13 @@ export default function Contato() {
           {enviado && (
             <p className="mt-4 rounded-lg bg-verde-claro px-4 py-3 text-sm font-medium text-verde">
               Mensagem enviada! Responderemos rápido. ✓
+            </p>
+          )}
+
+          {/* Mensagem de erro — aparece só se o envio falhar (estado `erro` preenchido) */}
+          {erro && (
+            <p className="mt-4 rounded-lg bg-laranja/10 px-4 py-3 text-sm font-medium text-laranja">
+              {erro}
             </p>
           )}
         </div>
